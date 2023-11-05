@@ -1,0 +1,33 @@
+version: "3.7"
+services:
+  myapp:
+    build:
+      context: ./docker
+      dockerfile: Dockerfile
+    ports:
+      - "8080:80"
+    tty: true
+    stdin_open: true
+    volumes:
+      - ./html:/var/www/html
+
+  db:
+    image: mysql:5.7
+    volumes:
+      - "./db:/docker-entrypoint-initdb.d"
+    environment:
+      MYSQL_DATABASE: spots
+      MYSQL_USER: admin-user
+      MYSQL_PASSWORD: 17498565
+      MYSQL_ROOT_PASSWORD: 17498565
+
+  phpmyadmin:
+    image: phpmyadmin
+    depends_on:
+      - db
+    environment:
+      - PMA_HOSTS=db
+      - PMA_USER=root
+      - PMA_PASSWORD=17498565
+    ports:
+      - "3001:80"
