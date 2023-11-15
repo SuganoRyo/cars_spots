@@ -105,4 +105,35 @@ class UsersController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
+
+    public function beforeFilter(\Cake\Event\EventInterface $event)
+    {
+        parent::beforeFilter($event);
+        $this->Authentication->addUnauthenticatedActions(['login', 'add']);
+    }
+
+    public function login()
+    {
+        $result = $this->Authentication->getResult();
+        if ($result->isValid()) {
+            // ログインしていればログイン後の画面にリダイレクト
+            $target = $this->Authentication->getLoginRedirect() ?? '/users/index';
+            $this->redirect($target);
+            $this->Flash->success(__('ログインしました。'));
+        }
+        // ログイン認証に失敗した場合はエラーを表示する
+        if ($this->request->is('post') && !$result->isValid()) {
+            $this->Flash->error(__('メールアドレスまたはパスワードが誤っています。'));
+        }
+    }
+
+    public function logout()
+    {
+        $result = $this->Authentication->getResult();
+        if ($result->isValid()) {
+            $this->Authentication->logout();
+        }
+        $this->redirect(['controller' => 'Users', 'action' => 'login']);
+        $this->Flash->success(__('ログアウトしました。'));
+    }
 }

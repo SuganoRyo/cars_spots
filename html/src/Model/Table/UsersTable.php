@@ -78,4 +78,10 @@ class UsersTable extends Table
 
         return $validator;
     }
+    public function buildRules(RulesChecker $rules): RulesChecker
+    {
+        $rules->add($rules->isUnique(['username']));
+
+        return $rules;
+    }
 }
