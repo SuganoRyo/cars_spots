@@ -4,26 +4,33 @@
  * @var \App\Model\Entity\User $user
  */
 ?>
-<div class="row">
-    <aside class="column">
-        <div class="side-nav">
-            <h4 class="heading"><?= __('Actions') ?></h4>
-            <?= $this->Html->link(__('List Users'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
-        </div>
-    </aside>
-    <div class="column-responsive column-80">
-        <div class="users form content">
-            <?= $this->Form->create($user) ?>
-            <fieldset>
-                <legend><?= __('Add User') ?></legend>
-                <?php
-                    echo $this->Form->control('name');
-                    echo $this->Form->control('mail_address');
-                    echo $this->Form->control('password', ['label' => 'パスワード']);
-                ?>
-            </fieldset>
-            <?= $this->Form->button(__('Submit')) ?>
-            <?= $this->Form->end() ?>
-        </div>
-    </div>
+<div class="bg-dark py-5">
+    <?= $this->Form->create($user, ['class' => 'normal-form']) ?>
+        <fieldset>
+            <legend class="text-white text-center fw-bold"><?= __('New User') ?></legend>
+            <?= $this->Form->templates('name', [
+                'inputContainer' => '{{content}}',
+                'class' => 'form-control',
+                'style' => 'height: 50px',
+                'placeholder' => '氏名',
+            ]); ?>
+            <?= $this->Form->templates('mail_address', [
+                'inputContainer' => '{{content}}',
+                'class' => 'form-control mt-3',
+                'style' => 'height: 50px',
+                'placeholder' => 'メールアドレス',
+            ]); ?>
+            <?= $this->Form->templates('password', [
+                'inputContainer' => '{{content}}',
+                'class' => 'form-control mt-3',
+                'style' => 'height: 50px',
+                'type' => 'password',
+                'placeholder' => 'パスワード',
+            ]); ?>
+            <?= $this->Form->button('登録', [
+                'class' => 'btn btn-primary float-end mt-3',
+                'style' => 'width: 22%',
+            ]) ?>
+        </fieldset>
+    <?= $this->Form->end() ?>
 </div>

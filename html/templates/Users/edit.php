@@ -4,32 +4,45 @@
  * @var \App\Model\Entity\User $user
  */
 ?>
-<div class="row">
-    <aside class="column">
-        <div class="side-nav">
-            <h4 class="heading"><?= __('Actions') ?></h4>
-            <?= $this->Form->postLink(
-                __('Delete'),
-                ['action' => 'delete', $user->id],
-                ['confirm' => __('Are you sure you want to delete # {0}?', $user->id), 'class' => 'side-nav-item']
-            ) ?>
-            <?= $this->Html->link(__('List Users'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
-        </div>
-    </aside>
-    <div class="column-responsive column-80">
-        <div class="users form content">
-            <?= $this->Form->create($user) ?>
-            <fieldset>
-                <legend><?= __('Edit User') ?></legend>
-                <?php
-                    echo $this->Form->control('name');
-                    echo $this->Form->control('mail_address');
-                    echo $this->Form->control('password');
-                    echo $this->Form->control('modified', ['type' => 'hidden', 'value' => date("Y-m-d H:i:s")])
-                ?>
-            </fieldset>
-            <?= $this->Form->button(__('Submit')) ?>
-            <?= $this->Form->end() ?>
-        </div>
+<div class="bg-dark py-5">
+    <?= $this->Form->create($user, ['class' => 'normal-form']) ?>
+        <fieldset>
+            <legend class="text-white text-center fw-bold"><?= __('Edit User') ?></legend>
+            <?= $this->Form->templates('name', [
+                'inputContainer' => '{{content}}',
+                'class' => 'form-control',
+                'style' => 'height: 50px',
+                'placeholder' => '氏名',
+            ]); ?>
+            <?= $this->Form->templates('mail_address', [
+                'inputContainer' => '{{content}}',
+                'class' => 'form-control mt-3',
+                'style' => 'height: 50px',
+                'placeholder' => 'メールアドレス',
+            ]); ?>
+            <?= $this->Form->templates('password', [
+                'inputContainer' => '{{content}}',
+                'class' => 'form-control mt-3',
+                'style' => 'height: 50px',
+                'type' => 'password',
+                'placeholder' => '現在パスワード',
+                'val' => '',
+            ]); ?>
+            <?= $this->Form->templates('new-password', [
+                'inputContainer' => '{{content}}',
+                'class' => 'form-control mt-3',
+                'style' => 'height: 50px',
+                'type' => 'password',
+                'placeholder' => '新規パスワード',
+                'val' => '',
+            ]); ?>
+            <?= $this->Form->button('更新', [
+                'class' => 'btn btn-primary float-end mt-3',
+                'style' => 'width: 22%',
+            ]) ?>
+        </fieldset>
+    <?= $this->Form->end() ?>
+    <div class="d-flex justify-content-end">
+        <?= $this->Html->link(__('戻る'), ['action' => 'index'], ['class' => 'me-3']) ?>
     </div>
 </div>

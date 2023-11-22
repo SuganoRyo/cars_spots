@@ -2,6 +2,7 @@
 declare(strict_types=1);
 
 namespace App\Controller;
+use Cake\Auth\DefaultPasswordHasher;
 
 /**
  * Users Controller
@@ -74,14 +75,20 @@ class UsersController extends AppController
         $user = $this->Users->get($id, [
             'contain' => [],
         ]);
-        if ($this->request->is(['patch', 'post', 'put'])) {
-            $user = $this->Users->patchEntity($user, $this->request->getData());
-            if ($this->Users->save($user)) {
-                $this->Flash->success(__('The user has been saved.'));
 
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $data = $this->request->getData();
+            if (!(new DefaultPasswordHasher())->check($data['password'], $user->password)) {
+                $this->Flash->error(__('現在のパスワードが正しくありません。'));
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The user could not be saved. Please, try again.'));
+            $data['password'] = $data['new-password'];
+            $user = $this->Users->patchEntity($user, $data);
+            if ($this->Users->save($user)) {
+                $this->Flash->success(__('パスワードが更新されました。'));
+                return $this->redirect(['action' => 'index']);
+            }
+            $this->Flash->error(__('パスワードの更新に失敗しました。もう一度試してください。'));
         }
         $this->set(compact('user'));
     }
@@ -104,12 +111,6 @@ class UsersController extends AppController
         }
 
         return $this->redirect(['action' => 'index']);
-    }
-
-    public function beforeFilter(\Cake\Event\EventInterface $event)
-    {
-        parent::beforeFilter($event);
-        $this->Authentication->addUnauthenticatedActions(['login', 'add']);
     }
 
     public function login()

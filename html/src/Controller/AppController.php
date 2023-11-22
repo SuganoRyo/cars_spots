@@ -51,4 +51,16 @@ class AppController extends Controller
          */
         //$this->loadComponent('FormProtection');
     }
+
+    public function beforeFilter(\Cake\Event\EventInterface $event)
+    {
+        parent::beforeFilter($event);
+        $this->Authentication->addUnauthenticatedActions(['login', 'add']);
+        $user = $this->Authentication->getIdentity();
+        if ($user != null) {
+            $this->set('auth', $user->name);
+        } else {
+            $this->set('auth', null);
+        }
+    }
 }
