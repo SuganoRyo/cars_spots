@@ -110,7 +110,7 @@ msgstr "{{page}}/{{pages}}ページ、{{current}}/{{count}}件表示"
 
 #: ./templates/Users/view.php:12
 msgid "Delete User"
-msgstr "削除する"
+msgstr "削除"
 
 #: ./templates/Users/view.php:22
 msgid "Name"
