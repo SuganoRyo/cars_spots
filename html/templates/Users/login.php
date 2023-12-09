@@ -1,4 +1,4 @@
-<div class="bg-dark py-5">
+<div class="main bg-dark py-5">
     <?= $this->Form->create(null, ['class' => 'normal-form']) ?>
         <fieldset>
             <legend class="text-white text-center fw-bold"><?= __('ログイン') ?></legend>

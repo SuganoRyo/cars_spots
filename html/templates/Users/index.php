@@ -4,7 +4,7 @@
  * @var iterable<\App\Model\Entity\User> $users
  */
 ?>
-<div class="container">
+<div class="container pt-3">
     <h3><?= __('全ユーザー') ?></h3>
     <div class="table-responsive">
         <table class="table table-striped table-hover table-bordered">
@@ -13,9 +13,9 @@
                     <th><?= $this->Paginator->sort('id') ?></th>
                     <th><?= $this->Paginator->sort('name') ?></th>
                     <th><?= $this->Paginator->sort('mail_address') ?></th>
-                    <th><?= $this->Paginator->sort('created') ?></th>
-                    <th><?= $this->Paginator->sort('modified') ?></th>
-                    <th><?= $this->Paginator->sort('deleted') ?></th>
+                    <th><?= $this->Paginator->sort('created_at') ?></th>
+                    <th><?= $this->Paginator->sort('modified_at') ?></th>
+                    <th><?= $this->Paginator->sort('deleted_at') ?></th>
                     <th class="actions"><?= __('Actions') ?></th>
                 </tr>
             </thead>
@@ -25,9 +25,9 @@
                     <td><?= $this->Number->format($user->id) ?></td>
                     <td><?= h($user->name) ?></td>
                     <td><?= h($user->mail_address) ?></td>
-                    <td><?= h($user->created) ?></td>
-                    <td><?= h($user->modified) ?></td>
-                    <td><?= h($user->deleted) ?></td>
+                    <td><?= h($user->created_at) ?></td>
+                    <td><?= h($user->modified_at) ?></td>
+                    <td><?= h($user->deleted_at) ?></td>
                     <td class="actions">
                         <?= $this->Html->link(__('View'), ['action' => 'view', $user->id]) ?>
                         <?= $this->Html->link(__('Edit'), ['action' => 'edit', $user->id]) ?>

@@ -16,29 +16,28 @@ class CreateUsers extends AbstractMigration
     {
         $this->table('users')
         ->addColumn('name', 'string', [
-            'default' => null,
             'limit' => 255,
             'null' => false,
         ])
         ->addColumn('mail_address', 'string', [
-            'default' => null,
             'limit' => 255,
             'null' => false,
         ])
         ->addColumn('password', 'string', [
-            'default' => null,
             'limit' => 255,
             'null' => false,
         ])
-        ->addColumn('created', 'datetime', [
-            'default' => null,
+        ->addColumn('created_at', 'datetime', [
+            'default' => 'CURRENT_TIMESTAMP',
             'null' => false,
         ])
-        ->addColumn('modified', 'datetime', [
-            'default' => null,
+        ->addColumn('modified_at', 'datetime', [
+            'default' => 'CURRENT_TIMESTAMP',
+            'null' => false,
         ])
-        ->addColumn('deleted', 'datetime', [
+        ->addColumn('deleted_at', 'datetime', [
             'default' => null,
+            'null' => true,
         ])
         ->create();
     }

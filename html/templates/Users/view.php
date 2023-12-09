@@ -4,7 +4,7 @@
  * @var \App\Model\Entity\User $user
  */
 ?>
-<div class="container">
+<div class="main container">
     <table class="table table-striped">
         <tr>
             <th><?= __('Id') ?></th>
@@ -19,22 +19,22 @@
             <td><?= h($user->mail_address) ?></td>
         </tr>
         <tr>
-            <th><?= __('Created') ?></th>
-            <td><?= h($user->created) ?></td>
+            <th><?= __('Created At') ?></th>
+            <td><?= h($user->created_at) ?></td>
         </tr>
         <tr>
-            <th><?= __('Modified') ?></th>
-            <td><?= h($user->modified) ?></td>
+            <th><?= __('Modified At') ?></th>
+            <td><?= h($user->modified_at) ?></td>
         </tr>
         <tr>
-            <th><?= __('Deleted') ?></th>
-            <td><?= h($user->deleted) ?></td>
+            <th><?= __('Deleted At') ?></th>
+            <td><?= h($user->deleted_at) ?></td>
         </tr>
         <tr>
             <th><?= __('Actions') ?></th>
             <td>
-                <?= $this->Html->link(__('Edit User'), ['action' => 'edit', $user->id], ['class' => 'side-nav-item']) ?>
-                <?= $this->Form->postLink(__('Delete User'), ['action' => 'delete', $user->id], ['confirm' => __('Are you sure you want to delete # {0}?', $user->id), 'class' => 'side-nav-item']) ?>
+                <?= $this->Html->link(__('Edit User'), ['action' => 'edit', $user->id]) ?>
+                <?= $this->Form->postLink(__('Delete User'), ['action' => 'delete', $user->id], ['confirm' => __('Are you sure you want to delete # {0}?', $user->id)]) ?>
             </td>
         </tr>
     </table>
