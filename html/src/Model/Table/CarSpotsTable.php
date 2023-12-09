@@ -46,6 +46,8 @@ class CarSpotsTable extends Table
         $this->belongsTo('Users', [
             'foreignKey' => 'user_id',
         ]);
+
+        $this->addBehavior('Timestamp');
     }
 
     /**
@@ -86,12 +88,8 @@ class CarSpotsTable extends Table
             ->notEmptyString('longitude');
 
         $validator
-            ->dateTime('created_at')
-            ->notEmptyDateTime('created_at');
-
-        $validator
-            ->dateTime('updated_at')
-            ->notEmptyDateTime('updated_at');
+            ->dateTime('deleted_at')
+            ->allowEmptyDateTime('deleted_at');
 
         return $validator;
     }
