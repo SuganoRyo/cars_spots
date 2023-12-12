@@ -19,16 +19,20 @@
             <td><?= h($user->mail_address) ?></td>
         </tr>
         <tr>
-            <th><?= __('Created At') ?></th>
-            <td><?= h($user->created_at) ?></td>
+            <th><?= __('Created') ?></th>
+            <td><?= h($user->created) ?></td>
         </tr>
         <tr>
-            <th><?= __('Modified At') ?></th>
-            <td><?= h($user->modified_at) ?></td>
+            <th><?= __('Modified') ?></th>
+            <td><?= h($user->modified) ?></td>
         </tr>
         <tr>
-            <th><?= __('Deleted At') ?></th>
-            <td><?= h($user->deleted_at) ?></td>
+            <th><?= __('Deleted') ?></th>
+            <td><?= h($user->deleted) ?></td>
+        </tr>
+        <tr>
+            <th><?= __('Image') ?></th>
+            <td><?= $user->image ? $this->html->image($user->image, ['style' => 'height: 10rem;']) : '' ?></td>
         </tr>
         <tr>
             <th><?= __('Actions') ?></th>

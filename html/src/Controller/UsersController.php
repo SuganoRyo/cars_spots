@@ -52,7 +52,18 @@ class UsersController extends AppController
     {
         $user = $this->Users->newEmptyEntity();
         if ($this->request->is('post')) {
-            $user = $this->Users->patchEntity($user, $this->request->getData());
+            $data = $this->request->getData();
+            $image = $this->request->getData('image');
+            $name = $image->getClientFilename();
+            if ($name != '') {
+                $path = WWW_ROOT . 'img/users-upload' . DS . $name;
+                $image->moveTo($path);
+                $user->image = 'users-upload/' . $name;
+            }
+            $user->name = $data['name'];
+            $user->mail_address = $data['mail_address'];
+            $user->password = $data['password'];
+
             if ($this->Users->save($user)) {
                 $this->Flash->success(__('The user has been saved.'));
 
@@ -78,17 +89,29 @@ class UsersController extends AppController
 
         if ($this->request->is(['patch', 'post', 'put'])) {
             $data = $this->request->getData();
+            $image = $data['image'];
+            $name = $image->getClientFilename();
+            if ($name != '') {
+                $path = WWW_ROOT . 'img/users-upload' . DS . $name;
+                $image->moveTo($path);
+                $user->image = 'users-upload/' . $name;
+            }
             if (!(new DefaultPasswordHasher())->check($data['password'], $user->password)) {
-                $this->Flash->error(__('現在のパスワードが正しくありません。'));
+                $this->Flash->error(__('パスワードが正しくありません。もう一度試してください。'));
                 return $this->redirect(['action' => 'index']);
             }
-            $data['password'] = $data['new-password'];
-            $user = $this->Users->patchEntity($user, $data);
+            if ($data['new-password'] != '') {
+                $user->password = $data['new-password'];
+            } else {
+                $user->password = $data['password'];
+            }
+            $user->name = $data['name'];
+            $user->mail_address = $data['mail_address'];
             if ($this->Users->save($user)) {
-                $this->Flash->success(__('パスワードが更新されました。'));
+                $this->Flash->success(__('ユーザー情報を更新しました。'));
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('パスワードの更新に失敗しました。もう一度試してください。'));
+            $this->Flash->error(__('ユーザー情報の更新に失敗しました。もう一度試してください。'));
         }
         $this->set(compact('user'));
     }

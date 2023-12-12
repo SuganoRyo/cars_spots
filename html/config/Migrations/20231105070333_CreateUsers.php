@@ -27,15 +27,15 @@ class CreateUsers extends AbstractMigration
             'limit' => 255,
             'null' => false,
         ])
-        ->addColumn('created_at', 'datetime', [
+        ->addColumn('created', 'datetime', [
             'default' => 'CURRENT_TIMESTAMP',
             'null' => false,
         ])
-        ->addColumn('modified_at', 'datetime', [
+        ->addColumn('modified', 'datetime', [
             'default' => 'CURRENT_TIMESTAMP',
             'null' => false,
         ])
-        ->addColumn('deleted_at', 'datetime', [
+        ->addColumn('deleted', 'datetime', [
             'default' => null,
             'null' => true,
         ])

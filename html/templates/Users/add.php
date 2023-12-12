@@ -11,7 +11,10 @@
     }
 </style>
 <div class="main bg-dark py-5">
-    <?= $this->Form->create($user, ['class' => 'normal-form']) ?>
+    <?= $this->Form->create($user, [
+            'class' => 'normal-form',
+            'enctype' => 'multipart/form-data',
+        ]) ?>
         <fieldset class="shape-fieldset">
             <legend class="text-white text-center fw-bold"><?= __('New User') ?></legend>
             <?= $this->Form->templates('name', [
@@ -32,6 +35,11 @@
                 'style' => 'height: 50px',
                 'type' => 'password',
                 'placeholder' => 'パスワード',
+            ]); ?>
+            <?= $this->Form->templates('image', [
+                'inputContainer' => '{{content}}',
+                'class' => 'form-control',
+                'type' => 'file',
             ]); ?>
             <div>
                 <?= $this->Form->button('登録', [
